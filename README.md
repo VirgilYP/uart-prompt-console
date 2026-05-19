@@ -1,5 +1,7 @@
 # uart-prompt-console
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 `uart-prompt-console` is a small Rust serial console for noisy UART sessions.
 
 It is useful when a device continuously prints background logs while you need to
