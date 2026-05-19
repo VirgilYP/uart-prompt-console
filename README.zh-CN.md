@@ -2,9 +2,15 @@
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-`uart-prompt-console` 是一个用 Rust 写的小型串口终端工具，适合设备 UART 一直刷后台日志、但你又需要输入 shell 命令的调试场景。
+`uart-prompt-console` 是一个面向 `tio` 风格 UART 调试流程的 prompt-aware 包装层，适合设备 UART 一直刷后台日志、但你又需要输入 shell 命令的调试场景。
 
 它的核心目标是：在看到设备 prompt 后暂停后台刷屏，让你稳定输入命令；发送命令前先把暂停期间缓存的旧日志刷出来，再把命令发给设备，避免旧日志混到命令响应后面。
+
+## 和 tio 的关系
+
+这个工具的定位是对 `tio` 常见使用流程做一层小包装，不是要替代 `tio` 的完整能力。
+
+普通串口会话直接用 `tio` 就很好；当设备持续刷后台日志、你又需要围绕 shell prompt 输入命令时，用 `uart-prompt-console` 在熟悉的串口终端流程上补一层 prompt-aware 的交互状态机。快捷键也刻意保留了 `tio` 用户熟悉的 `Ctrl-T` 前缀风格。
 
 ## 安装
 

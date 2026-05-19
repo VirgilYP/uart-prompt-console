@@ -2,12 +2,23 @@
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-`uart-prompt-console` is a small Rust serial console for noisy UART sessions.
+`uart-prompt-console` is a prompt-aware wrapper for `tio`-style UART sessions
+with noisy device logs.
 
 It is useful when a device continuously prints background logs while you need to
 type shell commands. The console can briefly stop the log stream at a prompt,
 let you type a command, flush the paused logs first, and then send your command
 to the device.
+
+## Relationship to tio
+
+This tool is intended as a small wrapper around the `tio` workflow, not as a
+replacement for `tio`'s full feature set.
+
+Use `tio` directly for ordinary serial sessions. Use `uart-prompt-console` when
+the device keeps printing background logs and you need a prompt-aware interaction
+layer on top of that familiar serial-console flow. The key bindings intentionally
+keep the `Ctrl-T` prefix style used by `tio`.
 
 ## Install
 
