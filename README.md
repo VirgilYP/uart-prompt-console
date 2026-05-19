@@ -1,9 +1,9 @@
-# uart-prompt-console
+# hush
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-`uart-prompt-console` is a prompt-aware wrapper for `tio`-style UART sessions
-with noisy device logs.
+`hush` is a prompt-aware wrapper for `tio`-style UART sessions with noisy device
+logs.
 
 It is useful when a device continuously prints background logs while you need to
 type shell commands. The console can briefly stop the log stream at a prompt,
@@ -15,10 +15,10 @@ to the device.
 This tool is intended as a small wrapper around the `tio` workflow, not as a
 replacement for `tio`'s full feature set.
 
-Use `tio` directly for ordinary serial sessions. Use `uart-prompt-console` when
-the device keeps printing background logs and you need a prompt-aware interaction
-layer on top of that familiar serial-console flow. The key bindings intentionally
-keep the `Ctrl-T` prefix style used by `tio`.
+Use `tio` directly for ordinary serial sessions. Use `hush` when the device keeps
+printing background logs and you need a prompt-aware interaction layer on top of
+that familiar serial-console flow. The key bindings intentionally keep the
+`Ctrl-T` prefix style used by `tio`.
 
 ## Install
 
@@ -35,20 +35,20 @@ cargo build --release
 ## Usage
 
 ```bash
-uart-prompt-console /dev/cu.usbmodem01234567895 -b 3000000
+hush /dev/cu.usbmodem01234567895 -b 3000000
 ```
 
 You can also provide the device through an environment variable:
 
 ```bash
-export UART_PROMPT_DEVICE=/dev/cu.usbmodem01234567895
-uart-prompt-console -b 3000000
+export HUSH_DEVICE=/dev/cu.usbmodem01234567895
+hush -b 3000000
 ```
 
 By default the tool writes a temporary log file under `/tmp`, for example:
 
 ```text
-/tmp/uart-prompt-console-1779081234.log
+/tmp/hush-1779081234.log
 ```
 
 The log file keeps the original UART bytes. Display-only cleanup does not modify
@@ -101,7 +101,7 @@ Ctrl-T ?       Show help
 ```text
 -d <device>              Serial device. Positional <device> is also accepted.
 -b <baud>                Baud rate. Default: 3000000.
--l <logfile>             Log file path. Default: /tmp/uart-prompt-console-*.log.
+-l <logfile>             Log file path. Default: /tmp/hush-*.log.
 --newline cr|lf|crlf     Command line ending. Default: cr.
 ```
 

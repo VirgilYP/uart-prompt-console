@@ -1,8 +1,8 @@
-# uart-prompt-console
+# hush
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-`uart-prompt-console` 是一个面向 `tio` 风格 UART 调试流程的 prompt-aware 包装层，适合设备 UART 一直刷后台日志、但你又需要输入 shell 命令的调试场景。
+`hush` 是一个面向 `tio` 风格 UART 调试流程的 prompt-aware 包装层，适合设备 UART 一直刷后台日志、但你又需要输入 shell 命令的调试场景。
 
 它的核心目标是：在看到设备 prompt 后暂停后台刷屏，让你稳定输入命令；发送命令前先把暂停期间缓存的旧日志刷出来，再把命令发给设备，避免旧日志混到命令响应后面。
 
@@ -10,7 +10,7 @@
 
 这个工具的定位是对 `tio` 常见使用流程做一层小包装，不是要替代 `tio` 的完整能力。
 
-普通串口会话直接用 `tio` 就很好；当设备持续刷后台日志、你又需要围绕 shell prompt 输入命令时，用 `uart-prompt-console` 在熟悉的串口终端流程上补一层 prompt-aware 的交互状态机。快捷键也刻意保留了 `tio` 用户熟悉的 `Ctrl-T` 前缀风格。
+普通串口会话直接用 `tio` 就很好；当设备持续刷后台日志、你又需要围绕 shell prompt 输入命令时，用 `hush` 在熟悉的串口终端流程上补一层 prompt-aware 的交互状态机。快捷键也刻意保留了 `tio` 用户熟悉的 `Ctrl-T` 前缀风格。
 
 ## 安装
 
@@ -27,20 +27,20 @@ cargo build --release
 ## 使用
 
 ```bash
-uart-prompt-console /dev/cu.usbmodem01234567895 -b 3000000
+hush /dev/cu.usbmodem01234567895 -b 3000000
 ```
 
 也可以通过环境变量指定默认串口设备：
 
 ```bash
-export UART_PROMPT_DEVICE=/dev/cu.usbmodem01234567895
-uart-prompt-console -b 3000000
+export HUSH_DEVICE=/dev/cu.usbmodem01234567895
+hush -b 3000000
 ```
 
 默认日志会写到 `/tmp` 下，例如：
 
 ```text
-/tmp/uart-prompt-console-1779081234.log
+/tmp/hush-1779081234.log
 ```
 
 日志文件保存 UART 原始字节。屏幕显示层做的换行整理不会改动日志内容。
@@ -92,7 +92,7 @@ Ctrl-T ?     显示帮助
 ```text
 -d <device>              串口设备。也可以作为位置参数传入。
 -b <baud>                波特率。默认：3000000。
--l <logfile>             日志文件路径。默认：/tmp/uart-prompt-console-*.log。
+-l <logfile>             日志文件路径。默认：/tmp/hush-*.log。
 --newline cr|lf|crlf     命令行结束符。默认：cr。
 ```
 

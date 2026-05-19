@@ -82,7 +82,7 @@ fn default_log_path() -> String {
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_secs();
-    format!("/tmp/uart-prompt-console-{secs}.log")
+    format!("/tmp/hush-{secs}.log")
 }
 
 fn usage(program: &str) {
@@ -98,10 +98,10 @@ fn usage(program: &str) {
          Defaults:\n\
            baud:    {DEFAULT_BAUD}\n\
            newline: cr\n\
-           logfile: /tmp/uart-prompt-console-<timestamp>.log\n\
+           logfile: /tmp/hush-<timestamp>.log\n\
          \n\
          Environment:\n\
-           UART_PROMPT_DEVICE       Default device if -d/<device> is omitted.\n\
+           HUSH_DEVICE              Default device if -d/<device> is omitted.\n\
          \n\
          Keys:\n\
            Empty Enter    send newline, wait for '$', then pause at prompt\n\
@@ -117,7 +117,7 @@ fn usage(program: &str) {
 }
 
 fn parse_args() -> Result<Config, i32> {
-    let mut device = env::var("UART_PROMPT_DEVICE").ok();
+    let mut device = env::var("HUSH_DEVICE").ok();
     let mut baud = DEFAULT_BAUD;
     let mut log_path = default_log_path();
     let mut newline = NewlineMode::Cr;
@@ -260,7 +260,7 @@ fn redraw_input(screen: &Arc<Mutex<()>>, input: &[u8]) {
 fn show_help(screen: &Arc<Mutex<()>>, input: &[u8], paused: bool) {
     print_locked(
         screen,
-        b"\r\nuart-prompt-console keys:\r\n\
+        b"\r\nhush keys:\r\n\
           Empty Enter send newline, wait for '$', then pause at prompt\r\n\
           Enter       flush paused output, then send typed line\r\n\
           Ctrl-U      clear input\r\n\

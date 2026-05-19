@@ -1,8 +1,8 @@
 [package]
-name = "uart-prompt-console"
+name = "hush"
 version = "0.1.0"
 edition = "2021"
-description = "A UART/serial console that lets you pause noisy logs at a prompt, type a command, then flush and send."
+description = "A prompt-aware wrapper for tio-style UART sessions with noisy device logs."
 publish = false
 
 [dependencies]
